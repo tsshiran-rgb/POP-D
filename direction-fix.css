@@ -1,0 +1,2 @@
+.size-picker button{display:flex;align-items:center;justify-content:center;gap:8px}.create .size-picker button b{float:none!important;display:inline-block;margin:0}.size-picker button span{display:inline-block;margin:0;text-align:left}
+@media(max-width:420px){.size-picker button{gap:5px;flex-direction:column}.size-picker button span{text-align:center}}

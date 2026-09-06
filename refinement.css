@@ -1,0 +1,10 @@
+/* Feedback pass: compact cast, readable hover states, cleaner supporting panels. */
+.game nav button:hover{background:#ffe267!important;color:#17132b!important;box-shadow:inset 0 0 0 2px #d8bb32}
+.game nav button.active:hover{color:#17132b!important}
+
+.side>.panel{background:#fff!important}.side>.panel .panelHead{background:#fff!important;border-bottom:2px dashed #eadfe7}.side>.panel:first-child{box-shadow:6px 6px 0 var(--sun)}.side>.panel:nth-child(2){box-shadow:6px 6px 0 var(--bubble)}
+
+.members,.members:has(.member:nth-child(4)){grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;align-items:start}.members:has(.member:nth-child(5)) .member:last-child{grid-column:auto;max-width:none}.member{border-radius:20px;box-shadow:5px 5px 0 var(--sun)}.member:nth-child(2n){box-shadow:5px 5px 0 #9e79eb}.member:nth-child(3n){box-shadow:5px 5px 0 var(--aqua)}.portrait{height:108px;margin:8px;border-radius:16px}.portrait:after{width:76px;height:76px}.portrait>b{font-size:58px}.member>section{padding:12px 14px 14px}.member h3{font-size:24px;margin:0 0 5px}.member mark{font-size:7px;padding:3px 6px}.meter{margin-top:9px}.meter>i{margin-top:3px}.member footer{margin-top:11px;padding-top:9px}.title:has(+ .members){min-height:130px;padding-top:22px;padding-bottom:22px}
+
+@media(max-width:760px){.members,.members:has(.member:nth-child(4)){grid-template-columns:repeat(2,minmax(0,1fr))}.member{display:block}.portrait{height:96px}.member>section{padding:11px}.member h3{font-size:21px}}
+@media(max-width:480px){.members,.members:has(.member:nth-child(4)){grid-template-columns:1fr}.member{display:grid;grid-template-columns:105px 1fr}.portrait{height:calc(100% - 16px);min-height:130px}.member h3{font-size:22px}}
