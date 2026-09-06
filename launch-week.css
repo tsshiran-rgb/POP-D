@@ -1,0 +1,1 @@
+.actions>button.needs-release{position:relative}.actions>button.needs-release:after{content:attr(data-prerequisite);position:absolute;right:10px;top:9px;padding:4px 6px;border-radius:999px;background:#6d3ee0;color:#fff;font-size:6px;font-weight:900;letter-spacing:.08em}
