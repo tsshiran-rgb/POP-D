@@ -7,10 +7,10 @@ const source=fs.readFileSync(path.join(__dirname,'../mobile-life.js'),'utf8');
 function boot(overrides={},storage=new Map()){
   const buttons=new Map();const app={innerHTML:'',querySelectorAll:()=>[],querySelector(id){if(!buttons.has(id))buttons.set(id,{value:'Test',remove(){},classList:{toggle(){}}});return buttons.get(id)},insertAdjacentHTML(_,html){this.innerHTML+=html}};
   const S={band:'Test Band',year:1,month:0,week:1,cash:211,fans:2400,fame:12,hype:5,chem:68,songs:[],members:[{name:'Jade',strength:'Loyal',flaw:'Jealous',heart:50}],feed:['Hello']};
-  if(!storage.has('popDynastyMobileV1'))storage.set('popDynastyMobileV1',JSON.stringify({state:{phase:'game',player:{name:'Alex',age:20,role:'voice'},...overrides.state},S:{...S,...overrides.S}}));
-  const timers=[];const ctx={S,months:['January','February','March','April','May','June','July','August','September','October','November','December'],rivals:[],clamp:n=>Math.max(0,Math.min(100,n)),localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)},document:{createElement:()=>app,body:{append(){},insertAdjacentHTML(){}},querySelector:()=>null},setTimeout:fn=>(timers.push(fn),timers.length),clearTimeout(){}};
+  if(!storage.has('popDynastyMobileV1'))storage.set('popDynastyMobileV1',JSON.stringify({state:{phase:'game',milestones:{},player:{name:'Alex',age:20,role:'voice'},...overrides.state},S:{...S,...overrides.S}}));
+  const timers=[];const ctx={S,months:['January','February','March','April','May','June','July','August','September','October','November','December'],rivals:[],clamp:n=>Math.max(0,Math.min(100,n)),localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)},document:{createElement:()=>app,body:{append(){},insertAdjacentHTML(){}},querySelector:()=>null},setTimeout:fn=>(timers.push(fn),timers.length),clearTimeout(){},PopFeedback:{createToastQueue:()=>({push(){},setBlocked(){},clear(){}})}};
   vm.createContext(ctx);
-  vm.runInContext(source.replace('  restore();render();','  globalThis.financeTest={state,get meta(){return meta},S,activityData,progressionMechanics,hasValidProgressionPath,checkFinancialCrisis,takeEmergencyLoan,endCareer,startNewStory,generateMembers,perform,advanceTime,newWeek,resolveEvent,save,render};\n  restore();render();'),ctx);
+  vm.runInContext(source.replace('  initializeFeedback();render();','  globalThis.financeTest={state,get meta(){return meta},S,activityData,progressionMechanics,hasValidProgressionPath,checkFinancialCrisis,takeEmergencyLoan,endCareer,startNewStory,generateMembers,perform,advanceTime,newWeek,resolveEvent,save,render,showRecap,addMilestone,collectMilestones};\n  initializeFeedback();render();'),ctx);
   return {api:ctx.financeTest,app,buttons,storage,timers};
 }
 test('first failure automatically shows loan; loan preserves progress and persists exactly once',()=>{
@@ -52,3 +52,4 @@ test('spending and event consequences immediately check for true financial dead 
 test('a week with no income checks crisis after time advancement',()=>{
   const b=boot({state:{pendingWeek:true},S:{cash:211}});b.api.newWeek();assert.equal(b.api.S.week,2);assert.equal(b.api.state.financialCrisis,true);assert.match(b.app.innerHTML,/YOU'RE BROKE/);
 });
+module.exports={boot};
